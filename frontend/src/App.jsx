@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-// import axios from "axios"    // ❌ 안 씀
+
 import './App.css';
 import Header from './components/Header';
 import Input from './components/Input';
@@ -11,22 +11,19 @@ function App() {
   const API = '/api/buckets';
 
   useEffect(() => {
-  (async () => {
-    try {
-      await ensureGuestAuth();
-    } catch (e) {
-      console.warn('guest auth failed', e?.response?.status);
-    }
+    (async () => {
+      try {
+        await ensureGuestAuth();
 
-    try {
-      const res = await api.get(API);
-      const data = Array.isArray(res.data) ? res.data : (res.data?.buckets ?? []);
-      setBuckets(data);
-    } catch (err) {
-      console.error('목록 불러오기 실패', err);
-    }
-  })();
-}, []);
+
+        const res = await api.get(API);
+        const data = Array.isArray(res.data) ? res.data : (res.data?.buckets ?? []);
+        setBuckets(data);
+      } catch (err) {
+        console.error('목록 불러오기 실패', err);
+      }
+    })();
+  }, []);
 
 
   const onCreate = async (bucketText) => {

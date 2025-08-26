@@ -18,10 +18,10 @@ router.post("/guest", (req, res) => {
 
     res.cookie("auth", token, {
       httpOnly: true,
-      sameSite: "lax",   // ✅ dev(HTTP) 권장
-      secure: false,     // ✅ dev(HTTP)에서는 false
+      sameSite: 'None',   // 교차 사이트 XHR을 허용하려면 None
+      secure: false,      // dev용. https일 땐 true
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: "/",
+      path: '/',
     });
 
     return res.status(200).json({ message: "게스트 인증 완료", uid });
